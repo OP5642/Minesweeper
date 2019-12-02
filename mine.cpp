@@ -8,7 +8,7 @@ using namespace std;
 
 board::board(double difficulty, int width, int height){
 	diff=difficulty;
-	if(diff==1)	total_bombs=m*n-1;
+	if(diff==1)	total_bombs=width*height-1;
 	else total_bombs=sqrt(2)*difficulty*width*height/PI; // nzm ovo pi kako da bude konstanta? Stavis define
 	marked_bombs=total_bombs;
 	m=height;
@@ -74,33 +74,51 @@ void board::outro(){
 	}
 }
 void board::open(int x, int y){
-	cout<<x<<" "<<y<<endl;
-	Sleep(1000);
-	if(bomb[x][y]==9){
+	if(x<n&&x>=0&&y>=0&&y<m){
+		if(bomb[x][y]==9){
 		diff=0;
 	}
-	if(x<n&&x>=0&&y>=0&&y<m){
 	symbol[x][y]=char(bomb[x][y])+48;
 	if(bomb[x][y]==0){
-			symbol[x-1][y]=char(bomb[x-1][y])+48;
-			symbol[x+1][y]=char(bomb[x+1][y])+48;
-			symbol[x][y-1]=char(bomb[x][y-1])+48;
-			symbol[x][y+1]=char(bomb[x][y+1])+48;
-			symbol[x-1][y-1]=char(bomb[x-1][y-1])+48;
-			symbol[x-1][y+1]=char(bomb[x-1][y+1])+48;
-			symbol[x+1][y-1]=char(bomb[x+1][y-1])+48;
-			symbol[x+1][y+1]=char(bomb[x+1][y+1])+48;
-			if(bomb[x][y-1]==0&&symbol[x][y-1]>=177){
+			if(bomb[x][y-1]==0&&(int(symbol[x][y-1])==-2)){
+				symbol[x][y-1]=char(bomb[x][y-1])+48;
 				open(x,y-1);
 			}
-			if(bomb[x][y+1]==0&&symbol[x][y+1]>=177){
+			if(bomb[x][y+1]==0&&int(symbol[x][y+1])==-2){
+				symbol[x][y+1]=char(bomb[x][y+1])+48;
 				open(x,y+1);
 			}
-			if(bomb[x+1][y]==0&&symbol[x+1][y]>=177){
+			if(bomb[x+1][y]==0&&int(symbol[x+1][y])==-2){
+				symbol[x+1][y]=char(bomb[x+1][y])+48;
 				open(x+1,y);
 			}
-			if(bomb[x-1][y]==0&&symbol[x-1][y]>=177){
+			if(bomb[x-1][y]==0&&int(symbol[x-1][y])==-2){
+				symbol[x-1][y]=char(bomb[x-1][y])+48;
 				open(x-1,y);
+			}
+			if(int(symbol[x-1][y])==-2){
+				symbol[x-1][y]=char(bomb[x-1][y])+48;
+			}
+			if(int(symbol[x+1][y])==-2){
+				symbol[x+1][y]=char(bomb[x+1][y])+48;
+			}
+			if(int(symbol[x][y-1])==-2){
+				symbol[x][y-1]=char(bomb[x][y-1])+48;
+			}
+			if(int(symbol[x][y+1])==-2){
+				symbol[x][y+1]=char(bomb[x][y+1])+48;
+			}
+			if(int(symbol[x-1][y-1])==-2){
+				symbol[x-1][y-1]=char(bomb[x-1][y-1])+48;
+			}
+			if(int(symbol[x-1][y+1])==-2){
+				symbol[x-1][y+1]=char(bomb[x-1][y+1])+48;
+			}
+			if(int(symbol[x+1][y-1])==-2){
+				symbol[x+1][y-1]=char(bomb[x+1][y-1])+48;
+			}
+			if(int(symbol[x+1][y+1])==-2){
+				symbol[x+1][y+1]=char(bomb[x+1][y+1])+48;
 			}
 		}
 		
@@ -204,4 +222,12 @@ int board::get_opened_fieds(){
 }
 int board::get_total_bombs(){
 	return total_bombs;
+}
+bool board::win(){
+	for(int i=0;i<m;i++){
+		for(int j=0;j<n;j++){
+			if(bomb[i][j]!=9&&(symbol[i][j]==-2||symbol[i][j]==-79)) return false;
+		}
+	}
+	return true;
 }

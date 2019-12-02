@@ -6,7 +6,6 @@
 using namespace std;
 int m,n;
 double glhf;
-
 int main(){
 	start:	cout<<"Unesite dimenzije zeljene table:";
 	srand(time(NULL));
@@ -26,11 +25,11 @@ int main(){
 		case 5:glhf=rand()/RAND_MAX;break;
 	}
 	board b(glhf,m,n);
+	cout<<b.get_total_bombs()<<endl;
 	int x,y,ind=0;
 	char y1,f;
 	bool p=false;
 	system("cls");
-	//cout<<b.get_diff()<<endl;;
 	while(1){
 		b.print();
 		cin>>f;
@@ -49,7 +48,7 @@ int main(){
 				if(f==char(48)) break;
 				else if(f==char(49)) goto start;
 			}
-			else if(b.get_opened_fieds()+b.get_total_bombs()==m*n){
+			if(b.win()){
 				cout<<"Cestitam, pobedili ste!"<<endl;
 				cout<<"Ako zelite da probate opet, stisnite 1, a ako zelite da izadjete , stisnite 0"<<endl;
 				cin>>f;
@@ -77,8 +76,5 @@ int main(){
 			system("cls");
 		}
 	}
-	//b.death();
-	//Sleep(3000);	
-	//b.death();
 	b.outro();
 }
