@@ -8,7 +8,6 @@ int m,n;
 double glhf;
 int main(){
 	start:	cout<<"Unesite dimenzije zeljene table:";
-	srand(time(NULL));
 	cin>>m>>n;
 	cout<<"Izaberite tezinu:"<<endl;
 	cout<<"1)Lako(->20%)"<<endl;
@@ -17,15 +16,17 @@ int main(){
 	cout<<"4)XD(->?%)"<<endl;
 	cout<<"5)Feeling lucky"<<endl;
 	cin>>glhf;
+	srand(time(NULL));
 	switch(int(glhf)){
 		case 1:glhf=0.44;break;
 		case 2:glhf=0.66;break;
 		case 3:glhf=0.9;break;
 		case 4:glhf=1;break;
-		case 5:glhf=rand()/RAND_MAX;break;
+		case 5:glhf=rand()%2+1;break;
 	}
 	board b(glhf,m,n);
-	cout<<b.get_total_bombs()<<endl;
+	//cout<<glhf<<endl;
+	//Sleep(3000);
 	int x,y,ind=0;
 	char y1,f;
 	bool p=false;
@@ -37,23 +38,37 @@ int main(){
 			cin>>x>>y1;
 			y=int(y1)-97;
 			b.open(x-1,y);
-			/*while(b.get_diff()==0&&ind==0&&glhf!=1){
-				board b1(0.6,m,n);
-				b1.open(x,y,p);
-			}*/
+			while(b.get_diff()==0&&ind==0&&glhf!=1){
+				board b1(glhf,m,n);
+				b1.open(x,y);
+				b=b1;
+			}
 			if(b.get_diff()==0){
 				b.death();
 				cout<<"Ako zelite da probate opet, stisnite 1, a ako zelite da izadjete , stisnite 0"<<endl;
 				cin>>f;
-				if(f==char(48)) break;
-				else if(f==char(49)) goto start;
+				if(f==char(48)){
+					system("cls");
+					break;
+				}
+				else if(f==char(49)){
+					system("cls");
+					goto start;
+				}
 			}
 			if(b.win()){
+				system("cls");
 				cout<<"Cestitam, pobedili ste!"<<endl;
 				cout<<"Ako zelite da probate opet, stisnite 1, a ako zelite da izadjete , stisnite 0"<<endl;
 				cin>>f;
-				if(f==char(48)) break;
-				else if(f==char(49)) goto start;
+				if(f==char(48)){
+					system("cls");
+					break;
+				}
+				else if(f==char(49)){
+					system("cls");
+					goto start;
+				}
 			}
 			system("cls");
 			ind=1;

@@ -74,58 +74,30 @@ void board::outro(){
 	}
 }
 void board::open(int x, int y){
-	if(x<n&&x>=0&&y>=0&&y<m){
-		if(bomb[x][y]==9){
-		diff=0;
-	}
-	symbol[x][y]=char(bomb[x][y])+48;
-	if(bomb[x][y]==0){
-			if(bomb[x][y-1]==0&&(int(symbol[x][y-1])==-2)){
-				symbol[x][y-1]=char(bomb[x][y-1])+48;
-				open(x,y-1);
-			}
-			if(bomb[x][y+1]==0&&int(symbol[x][y+1])==-2){
-				symbol[x][y+1]=char(bomb[x][y+1])+48;
-				open(x,y+1);
-			}
-			if(bomb[x+1][y]==0&&int(symbol[x+1][y])==-2){
-				symbol[x+1][y]=char(bomb[x+1][y])+48;
-				open(x+1,y);
-			}
-			if(bomb[x-1][y]==0&&int(symbol[x-1][y])==-2){
-				symbol[x-1][y]=char(bomb[x-1][y])+48;
-				open(x-1,y);
-			}
-			if(int(symbol[x-1][y])==-2){
-				symbol[x-1][y]=char(bomb[x-1][y])+48;
-			}
-			if(int(symbol[x+1][y])==-2){
-				symbol[x+1][y]=char(bomb[x+1][y])+48;
-			}
-			if(int(symbol[x][y-1])==-2){
-				symbol[x][y-1]=char(bomb[x][y-1])+48;
-			}
-			if(int(symbol[x][y+1])==-2){
-				symbol[x][y+1]=char(bomb[x][y+1])+48;
-			}
-			if(int(symbol[x-1][y-1])==-2){
-				symbol[x-1][y-1]=char(bomb[x-1][y-1])+48;
-			}
-			if(int(symbol[x-1][y+1])==-2){
-				symbol[x-1][y+1]=char(bomb[x-1][y+1])+48;
-			}
-			if(int(symbol[x+1][y-1])==-2){
-				symbol[x+1][y-1]=char(bomb[x+1][y-1])+48;
-			}
-			if(int(symbol[x+1][y+1])==-2){
-				symbol[x+1][y+1]=char(bomb[x+1][y+1])+48;
-			}
-		}
-		
-	}
-	else{
-			return;
-		}
+    if(bomb[x][y]==9)    diff=0;
+    if(x<n&&x>=0&&y>=0&&y<m){
+    symbol[x][y]=char(bomb[x][y])+48;
+    if(bomb[x][y]==0){
+            if(bomb[x][y-1]==0&&int(symbol[x][y-1])==-2)    open(x,y-1);
+            if(bomb[x+1][y-1]==0&&int(symbol[x+1][y-1])==-2)    open(x+1,y-1);
+            if(bomb[x+1][y]==0&&int(symbol[x+1][y])==-2)    open(x+1,y);
+            if(bomb[x+1][y+1]==0&&int(symbol[x+1][y+1])==-2)    open(x+1,y+1);
+            if(bomb[x][y+1]==0&&int(symbol[x][y+1])==-2)    open(x,y+1);
+            if(bomb[x-1][y+1]==0&&int(symbol[x-1][y+1])==-2)    open(x-1,y+1);
+            if(bomb[x-1][y]==0&&int(symbol[x-1][y])==-2)    open(x-1,y);
+            if(bomb[x-1][y-1]==0&&int(symbol[x-1][y-1])==-2)    open(x-1,y-1);
+            if(int(symbol[x-1][y])==-2)    symbol[x-1][y]=char(bomb[x-1][y])+48;
+            if(int(symbol[x+1][y])==-2)    symbol[x+1][y]=char(bomb[x+1][y])+48; 
+            if(int(symbol[x][y-1])==-2) symbol[x][y-1]=char(bomb[x][y-1])+48; 
+            if(int(symbol[x][y+1])==-2) symbol[x][y+1]=char(bomb[x][y+1])+48;
+            if(int(symbol[x-1][y+1])==-2)    symbol[x-1][y+1]=char(bomb[x-1][y+1])+48;
+            if(int(symbol[x+1][y-1])==-2)    symbol[x+1][y-1]=char(bomb[x+1][y-1])+48; 
+            if(int(symbol[x-1][y-1])==-2) symbol[x-1][y-1]=char(bomb[x-1][y-1])+48; 
+            if(int(symbol[x+1][y+1])==-2) symbol[x+1][y+1]=char(bomb[x+1][y+1])+48; 
+
+        }
+    }
+    else    return;
 }
 double board::get_diff(){
 	return diff;
