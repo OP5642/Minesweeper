@@ -73,31 +73,41 @@ void board::outro(){
 		Sleep(100);
 	}
 }
-void board::open(int x, int y, bool p){
-	if(bomb[x-1][int(y)-97]==9){
+void board::open(int x, int y){
+	cout<<x<<" "<<y<<endl;
+	Sleep(1000);
+	if(bomb[x][y]==9){
 		diff=0;
 	}
-	symbol[x-1][int(y)-97]=bomb[x-1][int(y)-97]+48;
-	if(bomb[x-1][int(y)-97]==0){
-		int y1=int(y)-97;
-		if(x<=n&&x>=0&&y1>=0&&y1<=m){
-			if(bomb[x-1][y1-1]==0){
-				open(x-1,char(y1-1+97),p);
+	if(x<n&&x>=0&&y>=0&&y<m){
+	symbol[x][y]=char(bomb[x][y])+48;
+	if(bomb[x][y]==0){
+			symbol[x-1][y]=char(bomb[x-1][y])+48;
+			symbol[x+1][y]=char(bomb[x+1][y])+48;
+			symbol[x][y-1]=char(bomb[x][y-1])+48;
+			symbol[x][y+1]=char(bomb[x][y+1])+48;
+			symbol[x-1][y-1]=char(bomb[x-1][y-1])+48;
+			symbol[x-1][y+1]=char(bomb[x-1][y+1])+48;
+			symbol[x+1][y-1]=char(bomb[x+1][y-1])+48;
+			symbol[x+1][y+1]=char(bomb[x+1][y+1])+48;
+			if(bomb[x][y-1]==0&&symbol[x][y-1]>=177){
+				open(x,y-1);
 			}
-			if(bomb[x-1][y1+1]==0){
-				open(x-1,char(y1+1+97),p);
+			if(bomb[x][y+1]==0&&symbol[x][y+1]>=177){
+				open(x,y+1);
 			}
-			if(bomb[x][y1]==0){
-				open(x,char(y1+97),p);
+			if(bomb[x+1][y]==0&&symbol[x+1][y]>=177){
+				open(x+1,y);
 			}
-			if(bomb[x-2][y1]==0){
-				open(x-2,char(y1+97),p);
+			if(bomb[x-1][y]==0&&symbol[x-1][y]>=177){
+				open(x-1,y);
 			}
 		}
-		else{
+		
+	}
+	else{
 			return;
 		}
-	}
 }
 double board::get_diff(){
 	return diff;

@@ -6,7 +6,7 @@ class board{
 	double diff;
 	public:
 		board(double difficulty, int height, int width);//Nevena,Filip
-		void open(int x,int y, bool p);//Ognjen
+		void open(int x,int y);//Ognjen
 		board mark(int x,int y);//Filip
 		board unmark(int x, int y);//Ognjen
 		double get_diff();//Nevena

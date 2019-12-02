@@ -6,6 +6,7 @@
 using namespace std;
 int m,n;
 double glhf;
+
 int main(){
 	start:	cout<<"Unesite dimenzije zeljene table:";
 	srand(time(NULL));
@@ -36,9 +37,7 @@ int main(){
 		if(f=='a'){
 			cin>>x>>y1;
 			y=int(y1)-97;
-			//cout<<int(y)-97;
-			b.open(x,y,p);
-			//cout<<"bbbb";
+			b.open(x-1,y);
 			/*while(b.get_diff()==0&&ind==0&&glhf!=1){
 				board b1(0.6,m,n);
 				b1.open(x,y,p);
